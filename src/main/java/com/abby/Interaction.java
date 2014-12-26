@@ -2,19 +2,17 @@ package com.abby;
 
 import java.io.*;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Interaction {
 
-    private final String wordPattern = "^[\\w']+$";
     private final String enterYourWord = "Enter the word you want to verify";
 
-    private boolean checkWord(String word) {
+    public boolean checkWord(String word) {
+        if(word == null){
+            return false;
+        }
         word = word.trim();
-        Pattern p = Pattern.compile(wordPattern);
-        Matcher m = p.matcher(word);
-        return m.matches() && StaticFactory.getBitSetRealisation().hasWord(word);
+        return StaticFactory.getWordBitSet().hasWord(word);
     }
 
     public void processConsoleInput() {
@@ -26,12 +24,17 @@ public class Interaction {
         }
     }
 
+    /**
+     * Provides reading words from fileName
+     * and putting them to our BloomFilter
+     * @param fileName
+     */
     public void fillBitSet(String fileName) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(new File(fileName)));
             String line;
             while ((line = reader.readLine()) != null) {
-                StaticFactory.getBitSetRealisation().addWord(line);
+                StaticFactory.getWordBitSet().addWord(line);
             }
             reader.close();
         } catch (FileNotFoundException e) {

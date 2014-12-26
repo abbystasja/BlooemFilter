@@ -1,12 +1,12 @@
 package com.abby;
 
 /**
- * Created by akulygina on 12/23/2014.
+ * This factory for now provides simple getting of WordBitSet instance
  */
 public class StaticFactory {
-    private static final WordBitSet bitSetRealisation = new WordBitSet();
+    private static final WordBitSet wordBitSet = new WordBitSet();
 
-    public static WordBitSet getBitSetRealisation() {
-        return bitSetRealisation;
+    public static WordBitSet getWordBitSet() {
+        return wordBitSet;
     }
 }
